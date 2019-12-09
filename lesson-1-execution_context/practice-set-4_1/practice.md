@@ -3,20 +3,28 @@
 
 1. In the browser, what serves as the global object?
 
+- `window`.
+
 2. In the Node.js environment, what serves as the global object?
+
+- `global`.
 
 3. In the browser environment, what does the following log?
       ```javascript
       a = 10;
 
       console.log(window.a);
-      ```      
+      ```
+- It logs 10.
+
 4. What does the following code log? Why?
       ```javascript
       var b = 100;
 
       console.log(window.b);
       ```
+- It logs 100 because `var` declarations become part of the global object.
+
 5. What does the following code log? Why?
       ```javascript
       let c = 9;
@@ -25,6 +33,7 @@
       console.log(window.c);
       console.log(window.d);
       ```
+- They log undefined, because it doesn't become part of the global object.
 
 6. What does the following code log? Why?
       ```javascript
@@ -36,6 +45,7 @@
 
       console.log(b);
       ```
+- It logs 100 because previously, `b` was declared a `var` and initialized with 100. `var`s are function scoped, and since the function has a new `var` with `b`, you would need to call on that specific `var`, otherwise it will log the global `b`.
 
 7. What does the following code log? Why?
       ```javascript
@@ -47,6 +57,7 @@
 
       console.log(b);
       ```
+- It logs 1 because when you call the function, you are reassigning the global `b` instead of creating a new `var`.
 
 8. What does the following code log? Why?
       ```javascript
@@ -58,6 +69,7 @@
 
       console.log(context);
       ```
+- It returns the `window` object in its entirety, because `this` in a browser is the same as `window`.
 
 9. What will the code below output? Explain the difference, if any, between this output and that of problem 8.
       ```javascript
@@ -71,6 +83,7 @@
 
       console.log(context);
       ```
+- It returns an object of the function `func()`, because unlike the previous code, this one has a method declaration of an object for `func()`. This, based on what was returned, simply returns the expression as an object.
 
 10. What will the following code produce? Why? 
       ```javascript
@@ -90,6 +103,7 @@
       console.log(add());
       console.log(c.add());
       ```
+- It first logs 20, then logs 0. It first logs 20 because you're logging the function `add()`, which references to the global variables `a` and `b`. Adding them will get you 20. However, when logging `c.add`, it becomes 0. This is because before logging it, you're creating a new property in the object `c` called `add`, which stores the function `add()` in it. This function calls on `this`, which, now that it's in the object, refers to the properties inside `c`, which happen to be `a` and `b`. Adding their values together gets you 0.
 
 11. In the code below, use `call` to invoke `add` as a method on `bar` but with `foo` as execution context. What will this return?
       ```javascript
@@ -104,8 +118,9 @@
          add: function() {
            return this.a + this.b;
          },
-      };
+      };///
       ```
+- 
 
 12. What does the `Function.prototype.bind()` method return?
 

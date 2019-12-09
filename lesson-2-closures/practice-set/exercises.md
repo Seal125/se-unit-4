@@ -2,8 +2,18 @@
 ## Closures
 
 1. What is a closure?
+- A closure is a function inside a function. The outer function creates a scope that allows the inner function to access variables declared in the outer scope, but without having to pollute the global scope, which could cause side effects that bring about inaccurate results. In other words, it keeps variables private.
 
 2. Create a function, `makeCounter`, that returns a function that increments and logs a number starting at 0.
+```
+function makeCounter(num) {
+      let count = 0;
+      return function() {
+            count += 1;
+            return count;
+      }
+}
+```
 
 3. What happens if calculateSum() is invoked multiple times? Does the initialValue change each time? Why or why not?
 
@@ -18,6 +28,7 @@
       const calculateSum = sum();
       calculateSum(33);
       ```
+- The initial value does not change - it stays the same. 
 
 4. Create a function, `makeAccount`, that takes a number parameter representing a starting balance and returns an object with three methods - `checkBalance`, `add`, `subtract`. `checkBalance` should return the current balance, `add` should take a number parameter and add it to the current balance, and `subtract` should take a number parameter and subtract it from the current balance.
 
